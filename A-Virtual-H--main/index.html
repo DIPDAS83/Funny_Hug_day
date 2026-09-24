@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>A Special Hug For You 🫂</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Quicksand:wght@500;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+  :root {
+    --primary: #ff6b8b;
+    --primary-dark: #d63061; 
+    --accent: #e84393;
+    --bg-gradient: linear-gradient(135deg, #ff758c 0%, #ff7eb3 35%, #fbc2eb 70%, #fd79a8 100%);
+    --white: #ffffff;
+    --shadow: 0 20px 50px rgba(214, 48, 97, 0.28);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    height: 100dvh;
+    background: var(--bg-gradient);
+    background-size: 400% 400%;
+    animation: gradientBG 10s ease infinite;
+    font-family: 'Quicksand', 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    perspective: 1000px;
+  }
+
+  @keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* --- Background Particles --- */
+  .bg-elements { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+  .particle {
+    position: absolute;
+    bottom: -10vh;
+    animation: floatUp linear infinite;
+    font-size: 1.5rem;
+    opacity: 0.6;
+    filter: blur(0.5px);
+  }
+  @keyframes floatUp {
+    0% { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0; }
+    20% { opacity: 0.8; }
+    100% { transform: translateY(-120vh) rotate(360deg) scale(1.2); opacity: 0; }
+  }
+
+  /* --- 3D Glass Card --- */
+  .card-container {
+    transform-style: preserve-3d;
+    transition: transform 0.1s;
+    width: 90%;
+    max-width: 420px;
+    z-index: 10;
+    margin-bottom: 30px;
+  }
+
+  .card {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 35px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    border: 2px solid rgba(255,255,255,0.8);
+    position: relative;
+    overflow: hidden;
+    transform: translateZ(20px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* --- Top Quote Banner --- */
+  .quote-banner {
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255,255,255,0.8);
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: var(--primary-dark);
+    font-style: italic;
+    font-weight: 600;
+    margin-bottom: 15px;
+    width: 100%;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s ease;
+  }
+
+  /* Decorative Wave */
+  .wave {
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 200%;
+    height: 60px;
+    background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="%23ff758c" fill-opacity="0.25"/></svg>');
+    background-size: 50% 100%;
+    animation: waveMove 6s linear infinite;
+    pointer-events: none;
+    z-index: 0;
+  }
+  @keyframes waveMove { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+  h1 { 
+    font-family: 'Fredoka', 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif; 
+    color: var(--primary-dark); 
+    font-size: clamp(1.5rem, 5vw, 1.8rem); 
+    margin: 15px 0 8px; 
+    min-height: 2.2rem;
+    z-index: 2;
+    position: relative;
+  }
+  
+  p { 
+    color: #636e72; 
+    font-size: clamp(0.9rem, 4vw, 1.1rem); 
+    margin-bottom: 20px; 
+    font-weight: 500; 
+    z-index: 2;
+    position: relative;
+  }
+
+  /* --- GIF Frame --- */
+  .gif-frame {
+    width: 100%;
+    aspect-ratio: 4/3; 
+    border-radius: 25px;
+    overflow: hidden;
+    border: 4px solid #fff;
+    background: #fff;
+    margin-bottom: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    position: relative;
+    transform: translateZ(10px);
+    z-index: 2;
+  }
+  .gif-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+  .card:hover .gif-img { transform: scale(1.05); }
+
+  /* --- Interactive Buttons --- */
+  .btn-group { display: flex; gap: 15px; justify-content: center; width: 100%; position: relative; z-index: 5;}
+  
+  .btn {
+    padding: 14px 20px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Fredoka', 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    white-space: nowrap;
+    position: relative;
+  }
+  
+  .btn-yes { 
+    background: var(--primary); 
+    color: white; 
+    box-shadow: 0 5px 15px rgba(214, 48, 97, 0.35);
+    flex: 1; 
+  }
+  .btn-yes:hover { transform: scale(1.05) translateY(-2px); box-shadow: 0 8px 20px rgba(214, 48, 97, 0.45); }
+  
+  .btn-no { 
+    background: #dfe6e9; 
+    color: #636e72; 
+    flex: 1;
+  }
+
+  /* --- Screens --- */
+  .screen { display: none; opacity: 0; transform: scale(0.9); transition: opacity 0.4s ease, transform 0.4s ease; width: 100%; }
+  .screen.active { display: block; opacity: 1; transform: scale(1); }
+
+  /* --- Hug Meter --- */
+  .meter-box {
+    background: #f1f2f6;
+    height: 30px;
+    border-radius: 50px;
+    padding: 4px;
+    margin: 20px 0;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+    position: relative;
+    z-index: 2;
+  }
+  .meter-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #fd79a8, #a29bfe);
+    border-radius: 50px;
+    transition: width 0.1s linear;
+    position: relative;
+    overflow: hidden;
+  }
+  .meter-fill::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+    transform: translateX(-100%);
+    animation: shimmer 1.5s infinite;
+  }
+  @keyframes shimmer { 100% { transform: translateX(100%); } }
+
+  /* --- Music Toggle --- */
+  .music-btn {
+    position: absolute;
+    top: 20px; right: 20px;
+    width: 45px; height: 45px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 50%;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 100;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+
+  #confetti { position: fixed; inset: 0; pointer-events: none; z-index: 50; }
+  
+  /* --- Emoji Trail --- */
+  .emoji-trail {
+    position: absolute;
+    font-size: 1.5rem;
+    pointer-events: none;
+    animation: fadeEmoji 1s linear forwards;
+    z-index: 999;
+  }
+  @keyframes fadeEmoji { 
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(20px) scale(0.5); opacity: 0; }
+  }
+
+  /* --- Bottom Credits --- */
+  .credits {
+    position: fixed;
+    bottom: 10px;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.8);
+    text-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 100;
+    text-align: center;
+  }
+  .credits span { color: #fff; font-weight: bold; }
+  .social-icons a { color: #fff; margin: 0 5px; text-decoration: none; font-size: 1rem; transition: 0.3s; }
+  .social-icons a:hover { color: var(--primary-dark); }
+
+  /* --- Love Receipt Styles --- */
+  .btn-receipt-pulse {
+    background: linear-gradient(135deg, #fd79a8, #6c5ce7);
+    color: #fff;
+    box-shadow: 0 6px 20px rgba(253, 121, 168, 0.45);
+    animation: pulseButton 2s infinite;
+  }
+  @keyframes pulseButton {
+    0%, 100% { transform: scale(1); box-shadow: 0 6px 20px rgba(253, 121, 168, 0.45); }
+    50% { transform: scale(1.03); box-shadow: 0 9px 25px rgba(253, 121, 168, 0.7); }
+  }
+
+  #receiptScreen {
+    max-height: 76vh;
+    overflow-y: auto;
+    width: 100%;
+    padding: 4px 6px 12px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent) transparent;
+  }
+  #receiptScreen::-webkit-scrollbar {
+    width: 4px;
+  }
+  #receiptScreen::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 4px;
+  }
+
+  .printer-slot {
+    width: 82%;
+    height: 8px;
+    background: #2d3436;
+    border-radius: 4px;
+    margin: 0 auto 8px;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.8), 0 2px 4px rgba(255,255,255,0.4);
+  }
+
+  .receipt-paper {
+    background: #ffffff;
+    color: #2d3436;
+    font-family: 'Space Mono', 'Courier New', monospace;
+    font-size: 0.72rem;
+    padding: 20px 14px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+    width: 100%;
+    margin: 0 auto;
+    text-align: left;
+    position: relative;
+    clip-path: polygon(
+      0% 7px, 3.3% 0px, 6.6% 7px, 10% 0px, 13.3% 7px, 16.6% 0px, 20% 7px, 23.3% 0px, 26.6% 7px, 30% 0px, 33.3% 7px, 36.6% 0px, 40% 7px, 43.3% 0px, 46.6% 7px, 50% 0px, 53.3% 7px, 56.6% 0px, 60% 7px, 63.3% 0px, 66.6% 7px, 70% 0px, 73.3% 7px, 76.6% 0px, 80% 7px, 83.3% 0px, 86.6% 7px, 90% 0px, 93.3% 7px, 96.6% 0px, 100% 7px,
+      100% calc(100% - 7px), 96.6% 100%, 93.3% calc(100% - 7px), 90% 100%, 86.6% calc(100% - 7px), 83.3% 100%, 80% calc(100% - 7px), 76.6% 100%, 73.3% calc(100% - 7px), 70% 100%, 66.6% calc(100% - 7px), 63.3% 100%, 60% calc(100% - 7px), 56.6% 100%, 53.3% calc(100% - 7px), 50% 100%, 46.6% calc(100% - 7px), 43.3% 100%, 40% calc(100% - 7px), 36.6% 100%, 33.3% calc(100% - 7px), 30% 100%, 26.6% calc(100% - 6px), 23.3% 100%, 20% calc(100% - 7px), 16.6% 100%, 13.3% calc(100% - 7px), 10% 100%, 6.6% calc(100% - 7px), 3.3% 100%, 0% calc(100% - 7px)
+    );
+    animation: printRoll 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes printRoll {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px) scaleY(0.7);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scaleY(1);
+    }
+  }
+
+  .receipt-header { text-align: center; margin-bottom: 6px; }
+  .receipt-title { font-weight: 700; font-size: 0.95rem; letter-spacing: 1px; color: #2d3436; }
+  .receipt-sub { font-size: 0.65rem; color: #636e72; margin-top: 2px; }
+  .receipt-branch { font-size: 0.6rem; color: #b2bec3; letter-spacing: 0.5px; }
+
+  .receipt-divider {
+    border-bottom: 1px dashed #b2bec3;
+    margin: 8px 0;
+  }
+
+  .receipt-meta { font-size: 0.68rem; line-height: 1.55; color: #2d3436; }
+  .receipt-meta-row { display: flex; justify-content: space-between; }
+  .receipt-meta-row span:first-child { color: #636e72; font-weight: 700; }
+
+  .receipt-items { width: 100%; margin: 6px 0; }
+  .receipt-item-header { display: flex; justify-content: space-between; font-weight: 700; font-size: 0.64rem; color: #636e72; padding-bottom: 2px; }
+  .receipt-item-line { border-bottom: 1px solid #dfe6e9; margin-bottom: 5px; }
+  .receipt-item { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 0.68rem; }
+  .item-desc { flex: 2; }
+  .item-qty { flex: 0.5; text-align: center; }
+  .item-amt { flex: 1; text-align: right; font-weight: 600; }
+
+  .receipt-calc { font-size: 0.68rem; line-height: 1.6; }
+  .receipt-calc-row { display: flex; justify-content: space-between; }
+  .total-highlight {
+    font-weight: 700;
+    font-size: 0.78rem;
+    color: #e84393;
+    padding: 3px 0;
+    border-top: 1px dashed #b2bec3;
+    border-bottom: 1px dashed #b2bec3;
+    margin: 4px 0;
+  }
+
+  .receipt-barcode-wrap { text-align: center; margin: 10px 0 6px; }
+  .barcode {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    height: 32px;
+    gap: 2px;
+    width: 85%;
+    margin: 0 auto;
+  }
+  .b-bar { background: #2d3436; }
+  .b-1 { width: 1.5px; }
+  .b-2 { width: 2.5px; }
+  .b-3 { width: 4px; }
+  .b-4 { width: 5.5px; }
+  .barcode-digits { font-size: 0.62rem; letter-spacing: 2px; margin-top: 4px; color: #636e72; }
+
+  .receipt-footer {
+    text-align: center;
+    font-size: 0.62rem;
+    color: #636e72;
+    line-height: 1.45;
+    margin-top: 8px;
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+
+<button class="music-btn" onclick="toggleMusic()" id="musicToggle">🔇</button>
+<audio id="bgMusic" loop>
+  <source src="" type="audio/mpeg"> </audio>
+
+<div class="bg-elements" id="bgElements"></div>
+<canvas id="confetti"></canvas>
+
+<div class="card-container" id="tiltCard">
+  <div class="card">
+    
+    <div class="quote-banner" id="quoteText">"In your arms is my favorite place in the entire universe." ❤️</div>
+
+    <div class="wave"></div>
+
+    <div class="screen active" id="askScreen">
+      <div class="gif-frame">
+        <img src="hug-ask.gif" class="gif-img" alt="Ask Hug">
+      </div>
+      <h1 class="type-text" data-text="Can I have a hug? 🥺"></h1>
+      <p>It's Hug Day and I'm lonely...</p>
+      <div class="btn-group" id="btnArea">
+        <button class="btn btn-yes" onclick="startJourney()">Yes! 🥰</button>
+        <button class="btn btn-no" id="noBtn" onclick="rejectHug()">No 😤</button>
+      </div>
+    </div>
+
+    <div class="screen" id="cryScreen">
+      <div class="gif-frame">
+        <img src="cry.gif" class="gif-img" alt="Crying">
+      </div>
+      <h1>But... why? 😭</h1>
+      <p>I promise I'll be squishy...</p>
+      <div class="btn-group">
+        <button class="btn btn-yes" onclick="startJourney()">Okay Yes! 🥺</button>
+        <button class="btn btn-no" onclick="pleadingMode()">Still No...</button>
+      </div>
+    </div>
+
+    <div class="screen" id="pleaseScreen">
+      <div class="gif-frame">
+        <img src="please.gif" class="gif-img" alt="Please">
+      </div>
+      <h1>Pretty please? 🥺❤️</h1>
+      <p>Look at those eyes...</p>
+      <button class="btn btn-yes" style="width:100%;" onclick="startJourney()">Okay, Fine! 🤗</button>
+    </div>
+
+    <div class="screen" id="loaderScreen">
+      <div class="gif-frame" style="border-color:var(--primary);">
+        <img src="loading.gif" class="gif-img" alt="Loading">
+      </div>
+      <h1>Preparing Warmth...</h1>
+      <p>Calibrating hug levels... 🔄</p>
+    </div>
+
+    <div class="screen" id="meterScreen">
+      <div class="gif-frame">
+        <img src="wait.gif" class="gif-img" alt="Cute Wait">
+      </div>
+      <h2 style="color:var(--primary); font-family:'Fredoka', sans-serif;">Hug Meter 💖</h2>
+      <div class="meter-box">
+        <div class="meter-fill" id="fillBar"></div>
+      </div>
+      <p id="statusTxt">Press & Hold to send warmth!</p>
+      <button class="btn btn-yes" id="holdBtn" style="width:100%;">HOLD BUTTON</button>
+    </div>
+
+    <div class="screen" id="finalScreen">
+      <div class="gif-frame" style="border-color:var(--accent);">
+        <img src="hug-final.gif" class="gif-img" alt="Tight Hug">
+      </div>
+      <h1>Officially Hugged! 🥰</h1>
+      <p style="font-style:italic; font-size:0.95rem;">
+        "In your arms is my favorite place in the entire universe."
+      </p>
+      <p style="margin-top:10px; color:var(--accent); font-weight:bold;">Happy Hug Day! ✨</p>
+      <button class="btn btn-receipt-pulse" onclick="showReceiptScreen()" style="margin-top:14px; width:100%;">🧾 View Official Love Receipt ✨</button>
+    </div>
+
+    <div class="screen" id="receiptScreen">
+      <div class="printer-slot"></div>
+      <div class="receipt-paper" id="loveReceipt">
+        <div class="receipt-header">
+          <div class="receipt-title">HUG & CUDDLE CO. ❤️</div>
+          <div class="receipt-sub">OFFICIAL EMBRACE HEADQUARTERS</div>
+          <div class="receipt-branch">STORE #0214 • RIGHT IN YOUR ARMS</div>
+        </div>
+        
+        <div class="receipt-divider"></div>
+        
+        <div class="receipt-meta">
+          <div class="receipt-meta-row"><span>DATE:</span> <span id="receiptDate"></span></div>
+          <div class="receipt-meta-row"><span>ORDER #:</span> <span id="receiptOrder">HUG-8824-LOVE</span></div>
+          <div class="receipt-meta-row"><span>CUSTOMER:</span> <span id="receiptCustomer">My Favorite Person</span></div>
+          <div class="receipt-meta-row"><span>CASHIER:</span> <span id="receiptCashier">Hxni ❤️</span></div>
+        </div>
+        
+        <div class="receipt-divider"></div>
+        
+        <div class="receipt-items">
+          <div class="receipt-item-header">
+            <span class="item-desc">DESCRIPTION</span>
+            <span class="item-qty">QTY</span>
+            <span class="item-amt">AMT</span>
+          </div>
+          <div class="receipt-item-line"></div>
+          <div class="receipt-item">
+            <span class="item-desc">Extra Tight Warm Hug</span>
+            <span class="item-qty">1</span>
+            <span class="item-amt">$0.00</span>
+          </div>
+          <div class="receipt-item">
+            <span class="item-desc">Forehead & Cheek Kisses</span>
+            <span class="item-qty">∞</span>
+            <span class="item-amt">$0.00</span>
+          </div>
+          <div class="receipt-item">
+            <span class="item-desc">Late-Night Soft Cuddles</span>
+            <span class="item-qty">100+</span>
+            <span class="item-amt">$0.00</span>
+          </div>
+          <div class="receipt-item">
+            <span class="item-desc">Cozy Shoulder to Lean On</span>
+            <span class="item-qty">1</span>
+            <span class="item-amt">$0.00</span>
+          </div>
+          <div class="receipt-item">
+            <span class="item-desc">Undivided Love & Devotion</span>
+            <span class="item-qty">100%</span>
+            <span class="item-amt">PRICELESS</span>
+          </div>
+        </div>
+        
+        <div class="receipt-divider"></div>
+        
+        <div class="receipt-calc">
+          <div class="receipt-calc-row"><span>SUBTOTAL</span><span>$0.00</span></div>
+          <div class="receipt-calc-row"><span>LOVER VIP DISCOUNT (-100%)</span><span>$0.00</span></div>
+          <div class="receipt-calc-row total-highlight"><span>TOTAL AMOUNT</span><span>FREE FOREVER ❤️</span></div>
+          <div class="receipt-calc-row"><span>PAYMENT METHOD:</span><span>SMILES & EMBRACES</span></div>
+        </div>
+        
+        <div class="receipt-divider"></div>
+        
+        <div class="receipt-barcode-wrap">
+          <div class="barcode">
+            <div class="b-bar b-1"></div><div class="b-bar b-3"></div><div class="b-bar b-1"></div><div class="b-bar b-2"></div>
+            <div class="b-bar b-4"></div><div class="b-bar b-1"></div><div class="b-bar b-2"></div><div class="b-bar b-3"></div>
+            <div class="b-bar b-1"></div><div class="b-bar b-4"></div><div class="b-bar b-2"></div><div class="b-bar b-1"></div>
+            <div class="b-bar b-3"></div><div class="b-bar b-2"></div><div class="b-bar b-1"></div><div class="b-bar b-4"></div>
+            <div class="b-bar b-2"></div><div class="b-bar b-1"></div><div class="b-bar b-3"></div><div class="b-bar b-2"></div>
+            <div class="b-bar b-4"></div><div class="b-bar b-1"></div><div class="b-bar b-2"></div><div class="b-bar b-3"></div>
+          </div>
+          <div class="barcode-digits">I - L O V E - Y O U - 2 4 / 7</div>
+        </div>
+        
+        <div class="receipt-footer">
+          *** RETURN POLICY ***<br>
+          Strictly non-refundable & non-exchangeable.<br>
+          Once hugged, you belong in my arms forever. ❤️
+        </div>
+      </div>
+      
+      <div class="btn-group" style="margin-top:14px; width:100%;">
+        <button class="btn btn-yes" onclick="showScreen('finalScreen')">← Back to Hug</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="credits">
+  Hxni - Made with <span>❤️</span>
+  <div class="social-icons">
+    <a href="https://www.instagram.com/the.cipher.stack/" target="_blank" title="@the.cipher.stack"><i class="fab fa-instagram"></i></a>
+    <a href="https://github.com/Hxni786" target="_blank" title="Hxni786"><i class="fab fa-github"></i></a>
+  </div>
+</div>
+
+<script>
+  /* --- 1. Quotes Rotation System (TOP OF CARD) --- */
+  const quotes = [
+    "“In your arms is my favorite place in the entire universe.” ❤️",
+    "“Hugs were invented to let people know you love them without saying anything.” 🫂",
+    "“One day, someone will hug you so tight that all of your broken pieces will stick back together.” ✨",
+    "“If hugs were seconds, I would hold you for an eternity.” 💖",
+    "“Hold me close enough to hear your heartbeat.” 💓",
+    "“A hug from you is all I need to make everything alright.” 🌸",
+    "“Distance means so little when your embrace means everything.” 🤍",
+    "“You are my favorite warm place in this world.” 🧸"
+  ];
+
+  const quoteEl = document.getElementById('quoteText');
+  let quoteIndex = 0;
+
+  setInterval(() => {
+    quoteEl.style.opacity = 0; // Fade out
+    setTimeout(() => {
+      quoteIndex = (quoteIndex + 1) % quotes.length;
+      quoteEl.innerText = quotes[quoteIndex];
+      quoteEl.style.opacity = 1; // Fade in
+    }, 500);
+  }, 4000); 
+
+  /* --- 2. Typewriter Effect --- */
+  function typeWriter(element, text, speed = 50) {
+    let i = 0;
+    element.innerHTML = "";
+    function type() {
+      if (i < text.length) {
+        element.innerHTML += text.charAt(i);
+        i++;
+        setTimeout(type, speed);
+      }
+    }
+    type();
+  }
+
+  function initReceipt() {
+    const dateEl = document.getElementById('receiptDate');
+    if (dateEl) {
+      const now = new Date();
+      const options = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+      dateEl.innerText = now.toLocaleDateString('en-US', options);
+    }
+    const orderEl = document.getElementById('receiptOrder');
+    if (orderEl) {
+      const randomId = Math.floor(1000 + Math.random() * 9000);
+      orderEl.innerText = `HUG-${randomId}-LOVE`;
+    }
+    const urlParams = new URLSearchParams(window.location.search);
+    const toName = urlParams.get('to') || urlParams.get('name');
+    const fromName = urlParams.get('from');
+    if (toName) {
+      const custEl = document.getElementById('receiptCustomer');
+      if (custEl) custEl.innerText = toName;
+    }
+    if (fromName) {
+      const cashEl = document.getElementById('receiptCashier');
+      if (cashEl) cashEl.innerText = fromName;
+    } else {
+      const cashEl = document.getElementById('receiptCashier');
+      if (cashEl) cashEl.innerText = "Hxni ❤️";
+    }
+  }
+
+  function showReceiptScreen() {
+    showScreen('receiptScreen');
+  }
+
+  window.onload = () => {
+    const h1 = document.querySelector('.type-text');
+    if(h1) typeWriter(h1, h1.getAttribute('data-text'));
+    initReceipt();
+  };
+
+  /* --- 3. Emoji Cursor Trail --- */
+  const emojis = ['❤️', '✨', '💖', '🌸', '🧸'];
+  document.addEventListener('mousemove', (e) => {
+    if(Math.random() > 0.1) return; 
+    const trail = document.createElement('div');
+    trail.className = 'emoji-trail';
+    trail.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+    trail.style.left = e.pageX + 'px';
+    trail.style.top = e.pageY + 'px';
+    document.body.appendChild(trail);
+    setTimeout(() => trail.remove(), 1000);
+  });
+
+  /* --- 4. Runaway "No" Button --- */
+  const noBtn = document.getElementById('noBtn');
+  
+  if (matchMedia('(pointer:fine)').matches) {
+    noBtn.addEventListener('mouseover', () => {
+      const maxX = 120; 
+      const maxY = 80;
+      const randomX = Math.random() * maxX - (maxX/2);
+      const randomY = Math.random() * maxY - (maxY/2);
+      noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+    });
+  }
+
+  /* --- 5. 3D Tilt Effect --- */
+  const card = document.getElementById('tiltCard');
+  document.addEventListener('mousemove', (e) => {
+    const xAxis = (window.innerWidth / 2 - e.pageX) / 30;
+    const yAxis = (window.innerHeight / 2 - e.pageY) / 30;
+    card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+  });
+
+  /* --- 6. Navigation & Audio Logic (UPDATED) --- */
+  const audio = document.getElementById('bgMusic');
+  const musicBtn = document.getElementById('musicToggle');
+  
+  // Helper to change song and play
+  function playSong(songFile) {
+    // Only change source if it's different to avoid reloading
+    if (!audio.src.includes(songFile)) {
+        audio.src = songFile;
+    }
+    audio.play().catch(e => console.log("Interaction needed first"));
+    musicBtn.innerText = "🔊";
+  }
+
+  function toggleMusic() {
+    if(audio.paused) {
+      audio.play().catch(e => console.log("Interaction needed"));
+      musicBtn.innerText = "🔊";
+    } else {
+      audio.pause();
+      musicBtn.innerText = "🔇";
+    }
+  }
+
+  function showScreen(id) {
+    const active = document.querySelector('.screen.active');
+    active.classList.remove('active');
+    setTimeout(() => {
+      document.getElementById(id).classList.add('active');
+    }, 200);
+  }
+
+  // LOGIC: Click NO -> Play song1.mp3 (Sad)
+  function rejectHug() { 
+    playSong('song1.mp3'); 
+    showScreen('cryScreen'); 
+  }
+
+  function pleadingMode() { 
+    showScreen('pleaseScreen'); 
+  }
+  
+  // LOGIC: Click YES -> Play song2.mp3 (Happy)
+  function startJourney() {
+    playSong('song2.mp3'); 
+    showScreen('loaderScreen');
+    setTimeout(() => showScreen('meterScreen'), 3500); 
+  }
+
+  /* --- 7. Hug Meter Logic --- */
+  const btn = document.getElementById('holdBtn');
+  const bar = document.getElementById('fillBar');
+  const txt = document.getElementById('statusTxt');
+  let progress = 0;
+  let interval;
+
+  const startAction = (e) => {
+    if(e.type === 'touchstart') e.preventDefault(); 
+    btn.style.transform = "scale(0.95)";
+    interval = setInterval(() => {
+      if(progress < 100) {
+        progress += 2; 
+        bar.style.width = progress + "%";
+        if(progress > 20) txt.innerText = "Squeezing... 🐻";
+        if(progress > 50) txt.innerText = "Tighter... ❤️";
+        if(progress > 80) txt.innerText = "Almost there... ✨";
+      } else {
+        clearInterval(interval);
+        finishHug();
+      }
+    }, 30);
+  };
+
+  const stopAction = () => {
+    clearInterval(interval);
+    btn.style.transform = "scale(1)";
+    if(progress < 100 && progress > 0) txt.innerText = "Don't let go! 🥺";
+  };
+
+  btn.addEventListener('mousedown', startAction);
+  btn.addEventListener('touchstart', startAction, {passive: false});
+  btn.addEventListener('mouseup', stopAction);
+  btn.addEventListener('mouseleave', stopAction);
+  btn.addEventListener('touchend', stopAction);
+
+  function finishHug() {
+    showScreen('finalScreen');
+    triggerConfetti();
+    if(navigator.vibrate) navigator.vibrate([100, 50, 200]);
+  }
+
+  /* --- 8. Confetti & Background --- */
+  function createParticles() {
+    const bg = document.getElementById('bgElements');
+    const icons = ['❤️', '💖', '🌸', '✨', '🌹', '🤍'];
+    setInterval(() => {
+      const el = document.createElement('div');
+      el.classList.add('particle');
+      el.innerText = icons[Math.floor(Math.random() * icons.length)];
+      el.style.left = Math.random() * 100 + "%";
+      el.style.animationDuration = (Math.random() * 5 + 10) + "s";
+      bg.appendChild(el);
+      setTimeout(() => el.remove(), 15000);
+    }, 800);
+  }
+  createParticles();
+
+  function triggerConfetti() {
+    const canvas = document.getElementById('confetti');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const pieces = Array.from({length: 150}).map(() => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height - canvas.height,
+      color: `hsl(${Math.random()*360}, 100%, 75%)`,
+      size: Math.random() * 8 + 4,
+      speed: Math.random() * 5 + 3,
+      swing: Math.random() * 2
+    }));
+
+    function draw() {
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      let active = false;
+      pieces.forEach(p => {
+        p.y += p.speed;
+        p.x += Math.sin(p.y * 0.05) * p.swing; 
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
+        ctx.fill();
+        if(p.y < canvas.height) active = true;
+      });
+      if(active) requestAnimationFrame(draw);
+    }
+    draw();
+  }
+</script>
+</body>
+
+</html>
